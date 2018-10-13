@@ -1,0 +1,5 @@
+#ignore build
+/bin
+
+# ignore libs
+/libs
