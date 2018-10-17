@@ -3,3 +3,7 @@
 
 # ignore libs
 /libs
+
+# ignore todo's and log files.
+Update_Log.txt
+TODO(jenchieh).txt
