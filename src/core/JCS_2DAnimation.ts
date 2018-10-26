@@ -37,39 +37,27 @@ namespace JCSEgret {
         // Display object.
         private _bitmap : egret.Bitmap = new egret.Bitmap();
 
-        private _x : number = 0.0;
-        private _y : number = 0.0;
-
-        private _pivotX : number = 0.0;
-        private _pivotY : number = 0.0;
-
-        private _width : number = 0.0;
-        private _height : number = 0.0;
-
-        private _scaleX : number = 1.0;
-        private _scaleY : number = 1.0;
-
 
         /* setter/getter */
         public getBitmap() : egret.Bitmap { return this._bitmap; }
 
-        public getX() : number { return this._x; }
-        public getY() : number { return this._y; }
-        public getWidth() : number { return this._width; }
-        public getHeight() : number { return this._height; }
-        public getPivotX() : number { return this._pivotX; }
-        public getPivotY() : number { return this._pivotY; }
-        public getScaleX() : number { return this._scaleX; }
-        public getScaleY() : number { return this._scaleY; }
+        public getX() : number { return this.getBitmap().x; }
+        public getY() : number { return this.getBitmap().y; }
+        public getWidth() : number { return this.getBitmap().width; }
+        public getHeight() : number { return this.getBitmap().height; }
+        public getPivotX() : number { return this.getBitmap().anchorOffsetX; }
+        public getPivotY() : number { return this.getBitmap().anchorOffsetY; }
+        public getScaleX() : number { return this.getBitmap().scaleX; }
+        public getScaleY() : number { return this.getBitmap().scaleY; }
 
-        public setX(x : number) : void { this._x = x; this.updatePosition(); }
-        public setY(y : number) : void { this._y = y; this.updatePosition(); }
-        public setWidth(w : number) : void { this._width = w; this.updateScale(); }
-        public setHeight(h : number) : void { this._height = h; this.updateScale(); }
-        public setPivotX(px : number) : void { this._pivotX = px; this.updatePosition(); }
-        public setPivotY(py : number) : void { this._pivotY = py; this.updatePosition(); }
-        public setScaleX(sx : number) : void { this._scaleX = sx; this.updateScale(); }
-        public setScaleY(sy : number) : void { this._scaleY = sy; this.updateScale(); }
+        public setX(x : number) : void { this.getBitmap().x = x; }
+        public setY(y : number) : void { this.getBitmap().y = y; }
+        public setWidth(w : number) : void { this.getBitmap().width = w; }
+        public setHeight(h : number) : void { this.getBitmap().height = h; }
+        public setPivotX(px : number) : void { this.getBitmap().anchorOffsetX = px; }
+        public setPivotY(py : number) : void { this.getBitmap().anchorOffsetY = py; }
+        public setScaleX(sx : number) : void { this.getBitmap().scaleX = sx; }
+        public setScaleY(sy : number) : void { this.getBitmap().scaleY = sy; }
 
 
         /**
@@ -171,8 +159,6 @@ namespace JCSEgret {
 
             // Play it.
             this._bitmap.texture = this._textures[frameIndex];
-
-            this.updateTextureInfo();
         }
 
         /**
@@ -191,35 +177,6 @@ namespace JCSEgret {
                 let resPath : string = prefixName + index + postfixName;
 
                 this._textures[index] = RES.getRes(resPath);
-            }
-        }
-
-        /**
-         * @desc Update the bitmap position once include calculating all
-         * the necessary factors.
-         */
-        private updatePosition() : void {
-            this.getBitmap().x = this._x + this._pivotX;
-            this.getBitmap().y = this._y + this._pivotY;
-        }
-
-        /**
-         * @desc Update the scale of the bitmap by calculating all the
-         * necessary factors.
-         */
-        private updateScale() : void {
-            this.getBitmap().width = this._width * this._scaleX;
-            this.getBitmap().height = this._height * this._scaleY;
-        }
-
-        /* Update the texture info. */
-        private updateTextureInfo() : void {
-            if (this._bitmap.texture == null) {
-                this._width = 0.0;
-                this._height = 0.0;
-            } else {
-                this._width = this.getBitmap().width;
-                this._height = this.getBitmap().height;
             }
         }
 
