@@ -45,7 +45,7 @@ namespace JCSEgret {
         /**
          * @desc Setter to all animation data.
          */
-        private setAnimData(dt : JCS_2DAnimData, newVal : number) {
+        private setAnimData(dt : JCS_2DAnimData, newVal : number) : void {
             this._animations.forEach(function (anim) {
                 switch (dt) {
                     case JCS_2DAnimData.X: anim.setX(newVal); break;
