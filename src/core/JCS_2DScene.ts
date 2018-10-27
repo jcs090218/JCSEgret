@@ -40,13 +40,14 @@ namespace JCSEgret {
 
         /**
          * @desc Add the interface to this scene.
+         *
          * @param inter Interface to add to this scene.
          * @returns Interface id.
          */
         public addInterface(inter : JCS_2DInterface) : number {
             if (inter == null) {
                 JCS_Debug.error("Cannot add interface with null references...");
-                return;
+                return -1;
             }
 
             this._interfaces.push(inter);
@@ -74,7 +75,7 @@ namespace JCSEgret {
          *
          * @param id Interface id.
          */
-        public getInterfaceById(id : number) {
+        public getInterfaceById(id : number) : JCS_2DInterface {
             return this._interfaces[id];
         }
     }
