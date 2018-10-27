@@ -15,6 +15,13 @@ namespace JCSEgret {
      */
     export abstract class JCS_DisplayObject {
 
+        // Display object id.
+        public doId : number = -1;
+
+        public constructor() {
+            // empty..
+        }
+
         /**
          * @desc Add this to the layer/interface/scene that
          * would display this object.
