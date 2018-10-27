@@ -117,7 +117,7 @@ namespace JCSEgret {
         public addAnim(anim : JCS_2DAnimation) : number {
             if (anim == null) {
                 JCS_Debug.error("Cannot add animation with null references...");
-                return;
+                return -1;
             }
 
             this._animations.push(anim);
