@@ -34,5 +34,46 @@ namespace JCSEgret {
                 displayObject.addToDOC(doc);
             });
         }
+
+        /**
+         * @desc Add the display object to this interface.
+         *
+         * @param disObj Display object to add to this interface.
+         * @returns Display object id.
+         */
+        public addDO(disObj : JCS_DisplayObject) : number {
+            if (disObj == null) {
+                JCS_Debug.error("Cannot add display object with null references...");
+                return -1;
+            }
+
+            this._displayObjects.push(disObj);
+
+            // Assign interface id.
+            let doId : number = this._displayObjects.length - 1;
+            disObj.doId = doId;
+
+            // Returns interface id.
+            return doId;
+        }
+
+        /**
+         * @desc Remove display object from the display object list by using
+         * display object id.
+         *
+         * @param id Display object id.
+         */
+        public removeDOById(id : number) : void {
+            delete this._displayObjects[id];
+        }
+
+        /**
+         * @desc Returns the display object by using display object id.
+         *
+         * @param id Display object id.
+         */
+        public getDOById(id : number) : JCS_DisplayObject {
+            return this._displayObjects[id];
+        }
     }
 }
