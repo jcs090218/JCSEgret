@@ -13,16 +13,15 @@ namespace JCSEgret {
     /**
      * @desc 2D animation handler. Handle frame by frame animation.
      */
-    export class JCS_2DAnimation {
-
-        // Is the current animation active?
-        public active : boolean = true;
+    export class JCS_2DAnimation extends JCS_Component {
 
         // Frame per seconds for this animation.
         public fps : number = 0.2;
 
         // Loop the animation?
         public loop : boolean = true;
+
+        public animId : number = -1;
 
 
         // Timer to calculate the animation.
@@ -66,6 +65,8 @@ namespace JCSEgret {
          * @param frameCount Total frame length.
          */
         public constructor(prefixName : string, postfixName : string, frameCount : number) {
+            super();
+
             // Load the initial animation frames.
             this.loadAnimation(prefixName, postfixName, frameCount);
 
@@ -103,7 +104,7 @@ namespace JCSEgret {
         }
 
         /**
-         * Add this to the layer/interface/scene that would display
+         * @desc Add this to the layer/interface/scene that would display
          * this animation.
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
