@@ -23,6 +23,9 @@ namespace JCSEgret {
          * @param msg Logging message.
          */
         private static _log(logHeader : string, msg : string) : void {
+            if (!DEBUG)
+                return;
+
             console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
             console.log("=-" + logHeader + " : " + msg);
             console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
