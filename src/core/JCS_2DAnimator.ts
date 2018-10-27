@@ -13,15 +13,14 @@ namespace JCSEgret {
     /**
      * @desc Animator that controls multiple animations.
      */
-    export class JCS_2DAnimator {
-
-        private active : boolean = true;
+    export class JCS_2DAnimator extends JCS_Component {
 
         // Animation that this animator handle.
         private _animations : JCS_2DAnimation[] = new Array();
 
         // Current animation playing.
         private _currentAnim : JCS_2DAnimation = null;
+
 
         /* setter/getter */
         public getX() : number { return this._currentAnim.getX(); }
@@ -62,7 +61,7 @@ namespace JCSEgret {
 
 
         public constructor() {
-            // empty..
+            super();
         }
 
         /**
@@ -93,7 +92,7 @@ namespace JCSEgret {
         /**
          * @desc Switch the current playing animation by id.
          */
-        public switchAnimation(id : number) : void {
+        public switchAnimById(id : number) : void {
             // Ensure the animation is valid.
             let targetId = JCS_Util.clamp(id, 0, this._animations.length - 1);
 
@@ -115,7 +114,7 @@ namespace JCSEgret {
          * @param anim Animation to add to.
          * @returns Animation id for this animation.
          */
-        public addAnimation(anim : JCS_2DAnimation) : number {
+        public addAnim(anim : JCS_2DAnimation) : number {
             if (anim == null) {
                 JCS_Debug.error("Cannot add animation with null references...");
                 return;
@@ -128,7 +127,9 @@ namespace JCSEgret {
             // Initialize the animator the play the first animation
             // as default.
             if (animId == 0)
-                this.switchAnimation(0);
+                this.switchAnimById(0);
+
+            anim.animId = animId;
 
             // Returns the animation id.
             return animId;
@@ -139,8 +140,17 @@ namespace JCSEgret {
          *
          * @param id Animation id.
          */
-        public removeAnimation(id : number) : void {
+        public removeAnimById(id : number) : void {
             delete this._animations[id];
+        }
+
+        /**
+         * @desc Get the animation by animation id.
+         *
+         * @param id Animation id.
+         */
+        public getAnimById(id : number) : JCS_2DAnimation {
+            return this._animations[id];
         }
 
     }
