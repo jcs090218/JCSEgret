@@ -1,5 +1,5 @@
 /**
- * $File: JCS_2DCamera.ts $
+ * $File: Camera.ts $
  * $Date: 2018-10-27 11:40:13 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,18 +13,18 @@ namespace JCSEgret {
     /**
      * 2D Camera.
      */
-    export class JCS_2DCamera extends JCS_2DGameObject {
+    export class Camera extends GameObject {
 
         // Is the camera active?
         public active : boolean = true;
 
         // Target to follow.
-        private _followTarget : JCS_2DGameObject = null;
+        private _followTarget : GameObject = null;
 
 
         /* Setter/Getter */
-        public setFollowTarget(ft : JCS_2DGameObject) : void { this._followTarget = ft; }
-        public getFollowTarget() : JCS_2DGameObject { return this._followTarget; }
+        public setFollowTarget(ft : GameObject) : void { this._followTarget = ft; }
+        public getFollowTarget() : GameObject { return this._followTarget; }
 
 
         public constructor() {

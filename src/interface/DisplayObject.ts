@@ -1,5 +1,5 @@
 /**
- * $File: JCS_DisplayObject.ts $
+ * $File: DisplayObject.ts $
  * $Date: 2018-10-27 23:05:55 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * Display object.
      */
-    export abstract class JCS_DisplayObject {
+    export abstract class DisplayObject {
 
         // Display object id.
         public doId : number = -1;

@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Random.ts $
+ * $File: Random.ts $
  * $Date: 2018-10-26 20:35:51 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Random util.
      */
-    export class JCS_Random {
+    export class Random {
 
         /**
          * Returns a random floating point number between `min` (inclusive)
@@ -49,7 +49,7 @@ namespace JCSEgret {
          * @returns Random number between mininum and maxinum number.
          */
         public static rangeInt(min, max) : number {
-            return Math.floor(JCS_Random.rangeFloat(min, max));
+            return Math.floor(Random.rangeFloat(min, max));
         }
 
         /**
@@ -61,7 +61,7 @@ namespace JCSEgret {
          * @returns Random number between mininum and maxinum number.
          */
         public static randIncludeInt(min, max) : number {
-            return Math.floor(JCS_Random.rangeFloatInclude(min, max));
+            return Math.floor(Random.rangeFloatInclude(min, max));
         }
     }
 }

@@ -1,5 +1,5 @@
 /**
- * $File: JCS_2DScene.ts $
+ * $File: Scene.ts $
  * $Date: 2018-10-27 23:09:06 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Scene object, handle multiple interfaces.
      */
-    export class JCS_2DScene extends JCS_DisplayObject {
+    export class Scene extends DisplayObject {
 
         // Scene id.
         public sceneId : number = -1;
@@ -21,7 +21,7 @@ namespace JCSEgret {
         // Name of the scene.
         public name : string = "Default Scene";
 
-        private _interfaces : JCS_2DInterface[] = new Array();
+        private _interfaces : Interface[] = new Array();
 
 
         public constructor() {
@@ -44,9 +44,9 @@ namespace JCSEgret {
          * @param inter Interface to add to this scene.
          * @returns Interface id.
          */
-        public addInterface(inter : JCS_2DInterface) : number {
+        public addInterface(inter : Interface) : number {
             if (inter == null) {
-                JCS_Debug.error("Cannot add interface with null references...");
+                Debug.error("Cannot add interface with null references...");
                 return -1;
             }
 
@@ -75,7 +75,7 @@ namespace JCSEgret {
          *
          * @param id Interface id.
          */
-        public getInterfaceById(id : number) : JCS_2DInterface {
+        public getInterfaceById(id : number) : Interface {
             return this._interfaces[id];
         }
     }

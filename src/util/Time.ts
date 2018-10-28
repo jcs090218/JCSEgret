@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Time.ts $
+ * $File: Time.ts $
  * $Date: 2018-10-15 01:24:54 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,9 +13,9 @@ namespace JCSEgret {
     /**
      * @desc Time handle.
      */
-    export class JCS_Time {
+    export class Time {
 
-        public static _instance : JCS_Time = new JCS_Time();
+        public static _instance : Time = new Time();
 
         private _deltaTime : number = 0.0;
 
@@ -23,7 +23,7 @@ namespace JCSEgret {
 
 
         /* Singleton */
-        public static getInstance() : JCS_Time {
+        public static getInstance() : Time {
             return this._instance;
         }
 

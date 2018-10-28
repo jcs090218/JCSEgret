@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Math.ts $
+ * $File: MathUtil.ts $
  * $Date: 2018-10-26 21:34:31 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * Math util.
      */
-    export class JCS_Math {
+    export class MathUtil {
 
         /**
          * Absolute value.
@@ -32,7 +32,7 @@ namespace JCSEgret {
          * @returns Positive number of the target number.
          */
         public static toPositive(val) : number {
-            return JCS_Math.abs(val);
+            return Math.abs(val);
         }
 
         /**
@@ -41,7 +41,7 @@ namespace JCSEgret {
          * @returns Negative number of the target number.
          */
         public static toNegative(val) : number {
-            return -JCS_Math.abs(val);
+            return -Math.abs(val);
         }
 
         /**
@@ -125,7 +125,7 @@ namespace JCSEgret {
          * @returns True, is possible. False, not possible.
          */
         public static isPossible(val) : boolean {
-            let possibility = JCS_Random.rangeFloat(0, 100);
+            let possibility = Random.rangeFloat(0, 100);
             return (val > possibility) ? true : false;
         }
     }

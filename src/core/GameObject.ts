@@ -1,5 +1,5 @@
 /**
- * $File: JCS_2DGameObject.ts $
+ * $File: GameObject.ts $
  * $Date: 2018-10-16 01:53:51 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,9 +13,10 @@ namespace JCSEgret {
     /**
      * @desc GameObject determine the status of this object.
      */
-    export class JCS_2DGameObject extends JCS_Component {
+    export class GameObject extends Component {
 
-        private _components : JCS_Component[] = new Array();
+        // List of component this gameobject holds.
+        private _components : Component[] = new Array();
 
 
         /* Setter/Getter */
@@ -47,9 +48,9 @@ namespace JCSEgret {
          * @param comp Component to add to this gameobject.
          * @returns Component id represent to this component.
          */
-        public addComp(comp : JCS_Component) : number {
+        public addComp(comp : Component) : number {
             if (comp == null) {
-                JCS_Debug.error("Cannot add component with null reference...");
+                Debug.error("Cannot add component with null reference...");
                 return;
             }
 
@@ -74,7 +75,7 @@ namespace JCSEgret {
          *
          * @param id Component id.
          */
-        public getCompById(id : number) : JCS_Component {
+        public getCompById(id : number) : Component {
             return this._components[id];
         }
 

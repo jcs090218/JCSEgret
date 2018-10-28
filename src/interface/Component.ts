@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Component.ts $
+ * $File: Component.ts $
  * $Date: 2018-10-27 13:50:16 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Component base class for JCSEgret.
      */
-    export abstract class JCS_Component extends JCS_DisplayObject {
+    export abstract class Component extends DisplayObject {
 
         // Is the component active?
         public active : boolean = true;
@@ -39,12 +39,12 @@ namespace JCSEgret {
          */
         public registerUpdate(main : eui.UILayer) : number {
             if (main == null) {
-                JCS_Debug.error("Cannot register the update event with group null reference...");
+                Debug.error("Cannot register the update event with group null reference...");
                 return;
             }
 
             if (this._registerUpdate) {
-                JCS_Debug.warning("Register event have already been register...");
+                Debug.warning("Register event have already been register...");
                 return;
             }
 

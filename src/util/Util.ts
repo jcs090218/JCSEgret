@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Util.ts $
+ * $File: Util.ts $
  * $Date: 2018-10-15 23:56:27 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Utility static class.
      */
-    export class JCS_Util {
+    export class Util {
 
         /**
          * @desc Ensure the number is between mininum number and the maxinum number.

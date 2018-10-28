@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Button.ts $
+ * $File: Button.ts $
  * $Date: 2018-10-27 21:51:06 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -13,7 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Button handle.
      */
-    export abstract class JCS_Button {
+    export abstract class Button {
 
         private _button : eui.Button = new eui.Button();
 

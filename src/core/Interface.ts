@@ -1,5 +1,5 @@
 /**
- * $File: JCS_2DInterface.ts $
+ * $File: Interface.ts $
  * $Date: 2018-10-27 23:01:32 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -14,11 +14,11 @@ namespace JCSEgret {
      * @desc Interface contain list of display object and ready
      * to display as a group instead of individual component.
      */
-    export class JCS_2DInterface extends JCS_DisplayObject {
+    export class Interface extends DisplayObject {
 
         public interfaceId : number = -1;
 
-        private _displayObjects : JCS_DisplayObject[] = new Array();
+        private _displayObjects : DisplayObject[] = new Array();
 
 
         public constructor() {
@@ -41,9 +41,9 @@ namespace JCSEgret {
          * @param disObj Display object to add to this interface.
          * @returns Display object id.
          */
-        public addDO(disObj : JCS_DisplayObject) : number {
+        public addDO(disObj : DisplayObject) : number {
             if (disObj == null) {
-                JCS_Debug.error("Cannot add display object with null references...");
+                Debug.error("Cannot add display object with null references...");
                 return -1;
             }
 
@@ -72,7 +72,7 @@ namespace JCSEgret {
          *
          * @param id Display object id.
          */
-        public getDOById(id : number) : JCS_DisplayObject {
+        public getDOById(id : number) : DisplayObject {
             return this._displayObjects[id];
         }
     }

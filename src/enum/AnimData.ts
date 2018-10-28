@@ -1,5 +1,5 @@
 /**
- * $File: JCS_2DAnimData.ts $
+ * $File: AnimData.ts $
  * $Date: 2018-10-17 21:34:01 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -9,18 +9,19 @@
 
 
 namespace JCSEgret {
+
     /**
      * @desc List of animation data.
      */
-    export enum JCS_2DAnimData {
+    export enum AnimData {
         X,
         Y,
 
         WIDTH,
         HEIGHT,
 
-        PIVOT_X,
-        PIVOT_Y,
+        ANCHOR_OFFSET_X,
+        ANCHOR_OFFSET_Y,
 
         SCALE_X,
         SCALE_Y,

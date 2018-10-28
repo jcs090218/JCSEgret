@@ -1,5 +1,5 @@
 /**
- * $File: JCS_Debug.ts $
+ * $File: Debug.ts $
  * $Date: 2018-10-17 20:57:20 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -14,7 +14,7 @@ namespace JCSEgret {
      * @desc Debugging util class for developer to use and easier to see
      * the debug informations.
      */
-    export class JCS_Debug {
+    export class Debug {
 
         /**
          * @desc Private customize logging util.
@@ -35,28 +35,28 @@ namespace JCSEgret {
          * @desc Log out INFO information.
          */
         public static log(msg : string) : void {
-            JCS_Debug._log("INFO", msg);
+            Debug._log("INFO", msg);
         }
 
         /**
          * @desc Log out ERROR information.
          */
         public static error(msg : string) : void {
-            JCS_Debug._log("ERROR", msg);
+            Debug._log("ERROR", msg);
         }
 
         /**
          * @desc Log out WARNING information.
          */
         public static warning(msg : string) : void {
-            JCS_Debug._log("WARNING", msg);
+            Debug._log("WARNING", msg);
         }
 
         /**
          * @desc Log out REMINDER information.
          */
         public static reminder(msg : string) : void {
-            JCS_Debug._log("REMINDER", msg);
+            Debug._log("REMINDER", msg);
         }
 
     }
