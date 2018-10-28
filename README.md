@@ -1,6 +1,6 @@
 # JCSEgret #
 
-Egret Engine's express library. <br/><br/>
+Egret Engine's 2D game express library. <br/><br/>
 
 
 ## Current Version Status ##
