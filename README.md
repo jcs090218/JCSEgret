@@ -8,7 +8,7 @@ support, time handler to get the delta time between frames, etc. <br/><br/>
 ## Current Version Status ##
 Project Version => `0.0.1`
 <br/>
-Egret Version => `5.2.10`
+Egret Version => `5.2.12`
 <br/>
 
 ## Links ##
