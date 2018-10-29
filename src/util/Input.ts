@@ -38,6 +38,10 @@ namespace JCSEgret {
             {
                 ++Input._frameIdCounter;
 
+                /* NOTE(jenchieh): Not sure javascript will go up to what certain
+                 * limit. Just set it to something that would not be easily reach.
+                 * In theory, 2 is good enough. [Default: 1000]
+                 */
                 if (Input._frameIdCounter > 1000)
                     Input._frameIdCounter = 0;
             }
