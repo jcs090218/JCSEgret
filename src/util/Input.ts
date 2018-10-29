@@ -19,6 +19,8 @@ namespace JCSEgret {
         private static _keysReleaseThisFrame : KeyCode[] = [];
         private static _keysDown : KeyCode[] = [];
 
+        private static _frameIdCounter : number = 0;
+        private static _frameId : number = 0;
 
         /**
          * @desc Initialize for input module to get ready to work.
@@ -31,6 +33,15 @@ namespace JCSEgret {
          * @desc Clean the input buffer every frame.
          */
         public static cleanInputBuffer() : void {
+            /* Do frame counter, in order to check if the same frame
+             * pressed the same button multiple different places/files. */
+            {
+                ++Input._frameIdCounter;
+
+                if (Input._frameIdCounter > 1000)
+                    Input._frameIdCounter = 0;
+            }
+
             Input._keysDown = [];
             Input._keysReleaseThisFrame = [];
         }
@@ -50,11 +61,16 @@ namespace JCSEgret {
 
                     // Check contains.
                     if (Input._keysPressedThisFrame.indexOf(key) > -1) {
+                        if (Input._frameIdCounter == Input._frameId)
+                            return true;
                         return false;
                     } else {
                         // The key is down this frame, add to the check list.
                         // So when the next time it etners will return false.
                         Input._keysPressedThisFrame.push(key);
+
+                        // Update it so know is the same frame.
+                        Input._frameId = Input._frameIdCounter;
 
                         return true;
                     }
