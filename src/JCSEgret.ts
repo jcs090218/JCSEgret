@@ -27,6 +27,8 @@ namespace JCSEgret {
         // Update the game time, calculate delta time.
         Time.getInstance().update();
 
+        SoundManager.getInstance().update();
+
         // Do clean up.
         Input.cleanInputBuffer();
     }
