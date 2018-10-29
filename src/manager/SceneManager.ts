@@ -11,7 +11,7 @@
 namespace JCSEgret {
 
     /**
-     * @desc Scene manager handle.
+     * @desc Scene handler.
      */
     export class SceneManager {
 
