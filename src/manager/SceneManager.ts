@@ -81,6 +81,9 @@ namespace JCSEgret {
          * @param sceneObj Scene object you want to load.
          */
         public switchSceneByScene(sceneObj : Scene) : void {
+            if (this._switchingScene)
+                return;
+
             if (sceneObj == null) {
                 Debug.log("Cannot load the scene with scene null references...");
                 return;
