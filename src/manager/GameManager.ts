@@ -66,16 +66,17 @@ namespace JCSEgret {
         /**
          * @desc Register one main loop execution.
          * @param func Main loop function pointer.
+         * @param thisObj Data pointer.
          * @returns Program Id.
          */
-        public registerMainLoop(func : () => void, thisObject : any) : number {
+        public registerMainLoop(func : () => void, thisObj : any) : number {
             if (func == null) {
                 Debug.log("Cannot register the main loop with null references...");
                 return -1;
             }
 
             this._mainLoopsFunc.push(func);
-            this._mainLoopsObj.push(thisObject);
+            this._mainLoopsObj.push(thisObj);
 
             let programId = this._mainLoopsFunc.length - 1;
             return programId;
