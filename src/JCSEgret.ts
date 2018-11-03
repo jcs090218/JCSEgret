@@ -48,8 +48,8 @@ namespace JCSEgret {
      * @desc Register one main loop execution.
      * @param func Main loop function pointer.
      */
-    export function registerMainLoop(func : () => void) : number {
-        return GameManager.getInstance().registerMainLoop(func);
+    export function registerMainLoop(func : () => void, thisObject : any) : number {
+        return GameManager.getInstance().registerMainLoop(func, thisObject);
     }
 
     /**
