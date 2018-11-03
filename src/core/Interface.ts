@@ -20,6 +20,8 @@ namespace JCSEgret {
 
         private _displayObjects : DisplayObject[] = new Array();
 
+        private _friction : number = 1.0;
+
 
         public constructor() {
             super();
