@@ -11,7 +11,7 @@
 namespace JCSEgret {
 
     /**
-     * Initialize for JCSEgret to be ready.
+     * @desc Initialize for JCSEgret to be ready.
      * @param layer Stage of Egret engine provided.
      */
     export function init(layer : eui.UILayer) {
@@ -30,16 +30,25 @@ namespace JCSEgret {
     }
 
     /**
-     * Update the call each frame.
+     * @desc Update the call each frame.
      */
     export function update() {
         // Update the game time, calculate delta time.
         Time.getInstance().update();
 
+        GameManager.getInstance().update();
         SceneManager.getInstance().update();
         SoundManager.getInstance().update();
 
         // Do clean up.
         Input.cleanInputBuffer();
+    }
+
+    /**
+     * @desc Set the main loop execution.
+     * @param func Main loop function pointer.
+     */
+    export function setMainLoop(func : () => void) {
+        GameManager.getInstance().setMainLoop(func);
     }
 }
