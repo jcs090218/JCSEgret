@@ -12,12 +12,21 @@ namespace JCSEgret {
 
     /**
      * Initialize for JCSEgret to be ready.
+     * @param layer Stage of Egret engine provided.
      */
-    export function init(main : eui.UILayer) {
-        main.addEventListener(egret.Event.ENTER_FRAME, update, true);
+    export function init(layer : eui.UILayer) {
+        /* Initialize managers. */
+        {
+            GameManager.getInstance().init(layer);
+            SceneManager.getInstance().init();
+            SoundManager.getInstance();
+        }
 
-        // Add key event.
+        /* Initialize input handler. */
         Input.init();
+
+        /* Register pro loop for JCSEgret. */
+        layer.addEventListener(egret.Event.ENTER_FRAME, update, true);
     }
 
     /**
@@ -27,6 +36,7 @@ namespace JCSEgret {
         // Update the game time, calculate delta time.
         Time.getInstance().update();
 
+        SceneManager.getInstance().update();
         SoundManager.getInstance().update();
 
         // Do clean up.
