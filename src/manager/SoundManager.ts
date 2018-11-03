@@ -77,6 +77,9 @@ namespace JCSEgret {
          * @param sound Sound object.
          */
         public switchBGMBySound(sound : egret.Sound) : void {
+            if (this._switchingBGM)
+                return;
+
             if (sound == null) {
                 Debug.log("Cannot load background music with sound null references...");
                 return;
