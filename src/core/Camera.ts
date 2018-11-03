@@ -50,6 +50,10 @@ namespace JCSEgret {
             if (this._followTarget == null)
                 return;
 
+            // Make sure the current scene exists.
+            if (SceneManager.getInstance().getCurrentScene() == null)
+                return;
+
 
         }
     }
