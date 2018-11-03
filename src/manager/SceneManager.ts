@@ -18,20 +18,31 @@ namespace JCSEgret {
         // Singleton.
         private static _instance : SceneManager = new SceneManager();
 
-        // Is currently switching the scene.
-        private _switchingScene : boolean = false;
+        private _sceneFadeInTime : number = 1.5;  // Time to fade in the scene.
+        private _sceneFadeOutTime : number = 1.5;  // Time to fade out the scene.
 
-        // List of scenes this manager holds.
-        private _scenes : Scene[] = new Array();
-
-        // Previous scene, use when load the new scene.
-        private _prevScene : Scene = null;
+        // Next scene, use when load the new scene.
+        private _nextScene : Scene = null;
 
         // Current scene object.
         private _currentScene : Scene = null;
 
 
+        // List of scenes this manager holds.
+        private _scenes : Scene[] = new Array();
+
+        // Is currently switching the scene.
+        private _switchingScene : boolean = false;
+
+        // Screen/Mask use to fade the scene.
+        private _fadeScreen : egret.Shape = null;
+
+        // Fading the screen.
+        private _fadingIn : boolean = false;
+
+
         /* setter/getter */
+        public getCurrentScene() : Scene { return this._currentScene; }
 
 
         /**
@@ -45,11 +56,24 @@ namespace JCSEgret {
             // empty..
         }
 
+        public init() : void {
+            /* Initialize the fade screen. */
+            {
+                this._fadeScreen = new egret.Shape();
+                this._fadeScreen.graphics.beginFill(0x000000, 1.0);
+                this._fadeScreen.graphics.drawRect(0, 0, Screen.width(), Screen.height());
+                this._fadeScreen.graphics.endFill();
+                GameManager.getInstance().addToLayer(this._fadeScreen);
+
+                Util.moveToLastChild(this._fadeScreen);
+            }
+        }
+
         /**
          * @desc Update called every frame.
          */
         public update() : void {
-
+            this.doSwitchScene();
         }
 
         /**
@@ -57,6 +81,31 @@ namespace JCSEgret {
          * @param sceneObj Scene object you want to load.
          */
         public switchSceneByScene(sceneObj : Scene) : void {
+            if (sceneObj == null) {
+                Debug.log("Cannot load the scene with scene null references...");
+                return;
+            }
+
+            // Get the scene buffer.
+            this._nextScene = sceneObj;
+
+            /* If current scene is null, meaning the scene is first scene
+             * to load. */
+            if (this._currentScene == null) {
+                // Directly assign the to the current scene.
+                this._currentScene = sceneObj;
+
+                this._fadeScreen.alpha = 1.0;
+
+                // Fade out the black screen immediately.
+                this._fadingIn = false;
+            } else {
+                this._fadeScreen.alpha = 0.0;
+
+                // If we currently have scene, we have to fade in the
+                // black screen first.
+                this._fadingIn = true;
+            }
 
             // Enable the flag.
             this._switchingScene = true;
@@ -130,6 +179,56 @@ namespace JCSEgret {
          */
         public getSceneById(sceneId : number) : Scene {
             return this._scenes[sceneId];
+        }
+
+        /**
+         * @desc Do to fade in/out the scene.
+         */
+        private doSwitchScene() : void {
+            if (!this._switchingScene)
+                return;
+
+            let alpha : number = this._fadeScreen.alpha;
+
+            Util.moveToLastChild(this._fadeScreen);
+
+            // Fading in.
+            if (this._fadingIn) {
+                alpha += (1.0 / this._sceneFadeInTime) * Time.deltaTime();
+
+                if (alpha >= 1) {
+                    this._fadeScreen.alpha = 1;
+
+                    // Invoke scene unload.
+                    if (this._currentScene.onSceneUnLoad != null)
+                        this._currentScene.onSceneUnLoad();
+
+                    // Swap the current scene.
+                    this._currentScene = this._nextScene;
+
+                    // Invoke scene loaded callback.
+                    if (this._currentScene.onSceneLoaded != null)
+                        this._currentScene.onSceneLoaded();
+
+                    // Ready to fade out.
+                    this._fadingIn = false;
+                } else {
+                    this._fadeScreen.alpha = alpha;
+                }
+            }
+            // Fading out.
+            else {
+                alpha -= (1.0 / this._sceneFadeOutTime) * Time.deltaTime();
+
+                if (alpha <= 0) {
+                    this._fadeScreen.alpha = 0;
+
+                    // Done switch scene task.
+                    this._switchingScene = false;
+                } else {
+                    this._fadeScreen.alpha = alpha;
+                }
+            }
         }
 
     }
