@@ -21,7 +21,9 @@ namespace JCSEgret {
         private _layer : eui.UILayer = null;
 
         // Main program loop.
-        private _mainLoops : Array<() => void> = new Array();
+        private _mainLoopsFunc : Array<() => void> = new Array();  // Operations.
+        private _mainLoopsObj : Array<any> = new Array();  // Preserve data pointer, to get the operations.
+
 
         /* setter/getter */
         public getLayer() : eui.UILayer { return this._layer; }
@@ -66,15 +68,16 @@ namespace JCSEgret {
          * @param func Main loop function pointer.
          * @returns Program Id.
          */
-        public registerMainLoop(func : () => void) : number {
+        public registerMainLoop(func : () => void, thisObject : any) : number {
             if (func == null) {
                 Debug.log("Cannot register the main loop with null references...");
                 return -1;
             }
 
-            this._mainLoops.push(func);
+            this._mainLoopsFunc.push(func);
+            this._mainLoopsObj.push(thisObject);
 
-            let programId = this._mainLoops.length - 1;
+            let programId = this._mainLoopsFunc.length - 1;
             return programId;
         }
 
@@ -83,16 +86,24 @@ namespace JCSEgret {
          * @param id Program id.
          */
         public deregisterMainLoop(id : number) {
-            delete this._mainLoops[id];
+            delete this._mainLoopsFunc[id];
+            delete this._mainLoopsObj[id];
         }
 
         /**
          * @desc Process the main loop.
          */
         private processEvent() : void {
-            this._mainLoops.forEach(function (func) {
-                func();
-            });
+            for (let index = 0;
+                 index < this._mainLoopsFunc.length;
+                 ++index) {
+                let func = this._mainLoopsFunc[index];
+
+                if (func == null)
+                    continue;
+
+                func.apply(this._mainLoopsObj[index]);
+            }
         }
     }
 }
