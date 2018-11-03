@@ -19,15 +19,20 @@ namespace JCSEgret {
         private static _width : number = 0.0;
         private static _height : number = 0.0;
 
+
         /* setter/getter */
         public static width() : number { Screen.updateScreenInfoOnce(); return Screen._width; }
         public static height() : number { Screen.updateScreenInfoOnce(); return Screen._height; }
+
 
         private constructor() {
             // empty..
         }
 
-        private static updateScreenInfoOnce() {
+        /**
+         * @desc Recollect the screen information once.
+         */
+        public static updateScreenInfoOnce() : void {
             let layer : eui.UILayer = GameManager.getInstance().getLayer();
             Screen._width = layer.stage.stageWidth;
             Screen._height = layer.stage.stageHeight;
