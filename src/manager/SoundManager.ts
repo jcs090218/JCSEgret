@@ -85,9 +85,10 @@ namespace JCSEgret {
             // First assign the preload, wait util the sound is fade out.
             this._nextBGM = sound;
 
+            /* If current bgm is null, meaning the bgm is first bgm
+             * to load. */
             if (this._currentBGM == null) {
-                // If there is no previous BGM, we will
-                // just fade in the current BGM immediately.
+                // Directly assign the to the current bgm.
                 this._currentBGM = sound;
 
                 this._currentBGMSoundChannel = this._currentBGM.play();  // Get the sound channel.
@@ -129,6 +130,7 @@ namespace JCSEgret {
         public playOneShotBySound(sound : egret.Sound) : void {
             if (sound == null)
                 return;
+
             sound.play(
                 0,   // Start time. (Default: 0)
                 1);  // Loops. (Default : 0, 0 means loop forever.)
