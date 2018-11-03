@@ -15,12 +15,19 @@ namespace JCSEgret {
      */
     export class Scene extends DisplayObject {
 
+
         // Scene id.
         public sceneId : number = -1;
 
         // Name of the scene.
         public name : string = "Default Scene";
 
+        // Initialize the scene after the scene is loaded.
+        public onSceneLoaded : () => void = null;
+        // Cleanup when the scene is going to unload.
+        public onSceneUnLoad : () => void = null;
+
+        // All the interfaces this scene holds.
         private _interfaces : Interface[] = new Array();
 
 
