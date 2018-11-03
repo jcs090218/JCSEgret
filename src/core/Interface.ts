@@ -20,7 +20,13 @@ namespace JCSEgret {
 
         private _displayObjects : DisplayObject[] = new Array();
 
+        // How fast the this interface move corresponding to the
+        // camera's movement.
         private _friction : number = 1.0;
+
+
+        /* setter/getter */
+        public getFriction() : number { return this._friction; }
 
 
         public constructor() {
