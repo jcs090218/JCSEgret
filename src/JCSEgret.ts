@@ -45,10 +45,18 @@ namespace JCSEgret {
     }
 
     /**
-     * @desc Set the main loop execution.
+     * @desc Register one main loop execution.
      * @param func Main loop function pointer.
      */
-    export function setMainLoop(func : () => void) {
-        GameManager.getInstance().setMainLoop(func);
+    export function registerMainLoop(func : () => void) : number {
+        return GameManager.getInstance().registerMainLoop(func);
+    }
+
+    /**
+     * @desc Deregister one main loop execution by program id.
+     * @param id Program id.
+     */
+    export function deregisterMainLoop(id : number) : void {
+        GameManager.getInstance().deregisterMainLoop(id);
     }
 }
