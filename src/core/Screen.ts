@@ -11,7 +11,7 @@
 namespace JCSEgret {
 
     /**
-     * @desc Screen.
+     * @desc Screen information collector.
      */
     export class Screen {
 
