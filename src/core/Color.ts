@@ -46,7 +46,7 @@ namespace JCSEgret {
          * @desc Returns the color code in number.
          */
         public toColor() : number {
-            return (this.r << 32) & (this.g << 16) & this.b;
+            return (this.r << 16) | (this.g << 8) | this.b;
         }
     }
 }
