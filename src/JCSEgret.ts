@@ -40,6 +40,8 @@ namespace JCSEgret {
         SceneManager.getInstance().update();
         SoundManager.getInstance().update();
 
+        Camera.getInstance().update();
+
         // Do clean up.
         Input.cleanInputBuffer();
     }
