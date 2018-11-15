@@ -31,10 +31,19 @@ namespace JCSEgret {
         // Target to follow.
         private _followTarget : GameObject = null;
 
+        // How fast it stop the camera to follow.
+        private _followFrictionX : number = 0.6;
+        private _followFrictionY : number = 0.6;
+
 
         /* Setter/Getter */
         public setFollowTarget(ft : GameObject) : void { this._followTarget = ft; }
         public getFollowTarget() : GameObject { return this._followTarget; }
+
+        public setFollowFrictionX(ffx : number) : void { this._followFrictionX = ffx; }
+        public getFollowFrictionX() : number { return this._followFrictionX; }
+        public setFollowFrictionY(ffy : number) : void { this._followFrictionY = ffy; }
+        public getFollowFrictionY() : number { return this._followFrictionY; }
 
         public getX() : number { return this._x; }
         public getY() : number { return this._y; }
@@ -135,7 +144,14 @@ namespace JCSEgret {
             if (currentScene == null)
                 return;
 
+            let targetX : number = this._followTarget.getX() - (Screen.width() / 2.0);
+            let targetY : number = this._followTarget.getY() - (Screen.height() / 2.0);
 
+            let newX : number = this.getX() + (targetX - this.getX()) / this._followFrictionX * Time.deltaTime();
+            let newY : number = this.getY() + (targetY - this.getY()) / this._followFrictionY * Time.deltaTime();
+
+            this.setX(newX);
+            this.setY(newY);
         }
 
         /**
