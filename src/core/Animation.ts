@@ -34,29 +34,29 @@ namespace JCSEgret {
         private _textures : egret.Texture[] = null;
 
         // Display object.
-        private _bitmap : egret.Bitmap = new egret.Bitmap();
+        private _sprite : Sprite = new Sprite();
 
 
         /* setter/getter */
-        public getBitmap() : egret.Bitmap { return this._bitmap; }
+        public getSprite() : Sprite { return this._sprite; }
 
-        public getX() : number { return this.getBitmap().x; }
-        public getY() : number { return this.getBitmap().y; }
-        public getWidth() : number { return this.getBitmap().width; }
-        public getHeight() : number { return this.getBitmap().height; }
-        public getAnchorOffsetX() : number { return this.getBitmap().anchorOffsetX; }
-        public getAnchorOffsetY() : number { return this.getBitmap().anchorOffsetY; }
-        public getScaleX() : number { return this.getBitmap().scaleX; }
-        public getScaleY() : number { return this.getBitmap().scaleY; }
+        public getX() : number { return this.getSprite().getX(); }
+        public getY() : number { return this.getSprite().getY(); }
+        public getWidth() : number { return this.getSprite().getWidth(); }
+        public getHeight() : number { return this.getSprite().getHeight(); }
+        public getAnchorOffsetX() : number { return this.getSprite().getAnchorOffsetX(); }
+        public getAnchorOffsetY() : number { return this.getSprite().getAnchorOffsetY(); }
+        public getScaleX() : number { return this.getSprite().getScaleX(); }
+        public getScaleY() : number { return this.getSprite().getScaleY(); }
 
-        public setX(x : number) : void { this.getBitmap().x = x; }
-        public setY(y : number) : void { this.getBitmap().y = y; }
-        public setWidth(w : number) : void { this.getBitmap().width = w; }
-        public setHeight(h : number) : void { this.getBitmap().height = h; }
-        public setAnchorOffsetX(px : number) : void { this.getBitmap().anchorOffsetX = px; }
-        public setAnchorOffsetY(py : number) : void { this.getBitmap().anchorOffsetY = py; }
-        public setScaleX(sx : number) : void { this.getBitmap().scaleX = sx; }
-        public setScaleY(sy : number) : void { this.getBitmap().scaleY = sy; }
+        public setX(x : number) : void { this.getSprite().setX(x); }
+        public setY(y : number) : void { this.getSprite().setY(y); }
+        public setWidth(w : number) : void { this.getSprite().setWidth(w); }
+        public setHeight(h : number) : void { this.getSprite().setHeight(h); }
+        public setAnchorOffsetX(px : number) : void { this.getSprite().setAnchorOffsetX(px); }
+        public setAnchorOffsetY(py : number) : void { this.getSprite().setAnchorOffsetY(py); }
+        public setScaleX(sx : number) : void { this.getSprite().setScaleX(sx); }
+        public setScaleY(sy : number) : void { this.getSprite().setScaleY(sy); }
 
 
         /**
@@ -64,7 +64,7 @@ namespace JCSEgret {
          * @param postfixName Postfix name of the animation targeting.
          * @param frameCount Total frame length.
          */
-        public constructor(prefixName : string, postfixName : string, frameCount : number) {
+        public constructor(prefixName : string = "", postfixName : string = "", frameCount : number = 0) {
             super();
 
             // Load the initial animation frames.
@@ -108,14 +108,41 @@ namespace JCSEgret {
          * this animation.
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
-            doc.addChild(this._bitmap);
+            this.getSprite().addToDOC(doc);
         }
 
         /**
          * @desc Remove the display object fomr this display object container.
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
-            doc.removeChild(this._bitmap);
+            this.getSprite().removeFromDOC(doc);
+        }
+
+        /**
+         * @desc Load the animation into buffer.
+         *
+         * @param prefixName Prefix name of the animation targeting.
+         * @param postfixName Postfix name of the animation targeting.
+         * @param frameCount Total frame length.
+         */
+        public loadAnimation(prefixName : string, postfixName : string, frameCount : number) {
+            // Cannot load the animation with empty frame.
+            if (frameCount <= 0)
+                return;
+
+            // Cannot load the animation with empty stirng.
+            if (prefixName == "" && postfixName == "")
+                return;
+
+            this._textures = new Array(frameCount);
+
+            for (let index : number = 0;
+                 index < frameCount;
+                 ++index) {
+                let resPath : string = prefixName + index + postfixName;
+
+                this._textures[index] = RES.getRes(resPath);
+            }
         }
 
         /**
@@ -135,7 +162,7 @@ namespace JCSEgret {
             this.pauseAnim();
 
             // Make the bitmap to null.
-            this._bitmap.texture = null;
+            this.getSprite().setTexture(null);
 
             // Reset frame.
             this._currentFrame = 0;
@@ -144,7 +171,9 @@ namespace JCSEgret {
             this._fpsTimer = 0.0;
         }
 
-        /* Un-pause the animation. */
+        /**
+         * @desc Un-pause the animation.
+         */
         public unPauseAnim() : void {
             this.active = true;
         }
@@ -166,26 +195,7 @@ namespace JCSEgret {
             frameIndex = Util.clamp(frameIndex, 0, this._textures.length - 1);
 
             // Play it.
-            this._bitmap.texture = this._textures[frameIndex];
-        }
-
-        /**
-         * @desc Load the animation into buffer.
-         *
-         * @param prefixName Prefix name of the animation targeting.
-         * @param postfixName Postfix name of the animation targeting.
-         * @param frameCount Total frame length.
-         */
-        private loadAnimation(prefixName : string, postfixName : string, frameCount : number) {
-            this._textures = new Array(frameCount);
-
-            for (let index : number = 0;
-                 index < frameCount;
-                 ++index) {
-                let resPath : string = prefixName + index + postfixName;
-
-                this._textures[index] = RES.getRes(resPath);
-            }
+            this.getSprite().setTexture(this._textures[frameIndex]);
         }
 
     }
