@@ -20,12 +20,6 @@ namespace JCSEgret {
 
 
         /* setter/getter */
-        public abstract setX(newX : number) : void;
-        public abstract setY(newY : number) : void;
-
-        public abstract getX() : number;
-        public abstract getY() : number;
-
 
         public constructor() {
             // empty..
