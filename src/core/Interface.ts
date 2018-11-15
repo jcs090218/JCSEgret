@@ -11,14 +11,14 @@
 namespace JCSEgret {
 
     /**
-     * @desc Interface contain list of display object and ready
-     * to display as a group instead of individual component.
+     * @desc Interface contain list of game object and ready
+     * to game as a group instead of individual component.
      */
     export class Interface extends DisplayObjectContainer {
 
         public interfaceId : number = -1;
 
-        private _displayObjects : DisplayObject[] = new Array();
+        private _gameObjects : GameObject[] = new Array();
 
         // How fast the this interface move corresponding to the
         // camera's movement.
@@ -26,16 +26,10 @@ namespace JCSEgret {
 
 
         /* setter/getter */
-        public getDisplayObjects() : DisplayObject[] { return this._displayObjects; }
+        public getGameObjects() : GameObject[] { return this._gameObjects; }
         public getFriction() : number { return this._friction; }
 
-        public setFriction(val : number) : void { this._friction = val; }
-
-        public setX(newX : number) : void { }
-        public setY(newY : number) : void { }
-
-        public getX() : number { return 0.0; }
-        public getY() : number { return 0.0; }
+        public setFriction(val : number) : void { this._friction = MathUtil.abs(val); }
 
 
         public constructor() {
@@ -44,62 +38,79 @@ namespace JCSEgret {
 
         /**
          * @desc Add this to the layer/interface/scene that
-         * would display this object.
+         * would game this object.
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
-            this._displayObjects.forEach(function (disObj) {
-                disObj.addToDOC(doc);
+            this._gameObjects.forEach(function (gameObj) {
+                gameObj.addToDOC(doc);
             });
         }
 
         /**
-         * @desc Remove the display object fomr this display object container.
+         * @desc Remove the game object fomr this game object container.
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
-            this._displayObjects.forEach(function (disObj) {
-                disObj.removeFromDOC(doc);
+            this._gameObjects.forEach(function (gameObj) {
+                gameObj.removeFromDOC(doc);
             });
         }
 
         /**
-         * @desc Add the display object to this interface.
+         * @desc Add the game object to this interface.
          *
-         * @param disObj Display object to add to this interface.
-         * @returns Display object id.
+         * @param gameObj Game object to add to this interface.
+         * @returns Game object id.
          */
-        public addDO(disObj : DisplayObject) : number {
-            if (disObj == null) {
-                Debug.error("Cannot add display object with null references...");
+        public addGO(gameObj : GameObject) : number {
+            if (gameObj == null) {
+                Debug.error("Cannot add game object with null references...");
                 return -1;
             }
 
-            this._displayObjects.push(disObj);
+            this._gameObjects.push(gameObj);
 
-            // Assign interface id.
-            let doId : number = this._displayObjects.length - 1;
-            disObj.doId = doId;
+            // Assign parent interface.
+            gameObj.setInterface(this);
 
-            // Returns interface id.
-            return doId;
+            // Assign gameobject id.
+            let id : number = this._gameObjects.length - 1;
+            gameObj.id = id;
+
+            // Returns gameobject id.
+            return id;
         }
 
         /**
-         * @desc Remove display object from the display object list by using
-         * display object id.
+         * @desc Remove game object from the game object list by using
+         * game object id.
          *
-         * @param id Display object id.
+         * @param id Game object id.
          */
-        public removeDOById(id : number) : void {
-            delete this._displayObjects[id];
+        public removeGOById(id : number) : void {
+            delete this._gameObjects[id];
         }
 
         /**
-         * @desc Returns the display object by using display object id.
+         * @desc Returns the game object by using game object id.
          *
-         * @param id Display object id.
+         * @param id Game object id.
          */
-        public getDOById(id : number) : DisplayObject {
-            return this._displayObjects[id];
+        public getGOById(id : number) : GameObject {
+            return this._gameObjects[id];
+        }
+
+        /**
+         * @desc Apply friction to the velocity of the interface.
+         *
+         * @note Just have it here so we can design how the friction work when
+         * applying to each interface.
+         *
+         * @returns Friction's multiplication result.
+         */
+        public applyFriction() : number {
+            if (this._friction == 0.0)
+                return 1.0;
+            return 1.0 / this._friction;
         }
     }
 }
