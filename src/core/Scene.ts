@@ -15,6 +15,12 @@ namespace JCSEgret {
      */
     export class Scene extends DisplayObjectContainer {
 
+        /* Scene Boundaries. */
+        public min_x_bound : number = Number.NEGATIVE_INFINITY;
+        public max_x_bound : number = Number.POSITIVE_INFINITY;
+        public min_y_bound : number = Number.NEGATIVE_INFINITY;
+        public max_y_bound : number = Number.POSITIVE_INFINITY;
+
         // Scene id.
         public sceneId : number = -1;
 
@@ -32,12 +38,6 @@ namespace JCSEgret {
 
         /* Setter/Getter */
         public getInterfaces() : Interface[] { return this._interfaces; }
-
-        public setX(newX : number) : void { }
-        public setY(newY : number) : void { }
-
-        public getX() : number { return 0.0; }
-        public getY() : number { return 0.0; }
 
 
         public constructor() {
