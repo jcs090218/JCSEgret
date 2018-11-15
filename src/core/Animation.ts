@@ -138,7 +138,8 @@ namespace JCSEgret {
 
             for (let index : number = 0;
                  index < frameCount;
-                 ++index) {
+                 ++index)
+            {
                 let resPath : string = prefixName + index + postfixName;
 
                 this._textures[index] = RES.getRes(resPath);
