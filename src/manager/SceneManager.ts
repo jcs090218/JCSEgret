@@ -96,7 +96,7 @@ namespace JCSEgret {
              * to load. */
             if (this._currentScene == null) {
                 // Directly assign the to the current scene.
-                this._currentScene = sceneObj;
+                this.setCurrentScene(sceneObj);
 
                 this._fadeScreen.alpha = 1.0;
 
@@ -202,16 +202,8 @@ namespace JCSEgret {
                 if (alpha >= 1) {
                     this._fadeScreen.alpha = 1;
 
-                    // Invoke scene unload.
-                    if (this._currentScene.onSceneUnLoad != null)
-                        this._currentScene.onSceneUnLoad();
-
                     // Swap the current scene.
-                    this._currentScene = this._nextScene;
-
-                    // Invoke scene loaded callback.
-                    if (this._currentScene.onSceneLoaded != null)
-                        this._currentScene.onSceneLoaded();
+                    this.setCurrentScene(this._nextScene);
 
                     // Ready to fade out.
                     this._fadingIn = false;
@@ -232,6 +224,44 @@ namespace JCSEgret {
                     this._fadeScreen.alpha = alpha;
                 }
             }
+        }
+
+        /**
+         * @desc Set the current scene.
+         */
+        private setCurrentScene(newScene : JCSEgret.Scene) : void {
+            if (newScene == null) {
+                Debug.log("Cannot set the current scene with null references...");
+                return;
+            }
+
+            let layer : eui.UILayer = JCSEgret.GameManager.getInstance().getLayer();
+
+            /* Unload the scene. */
+            {
+                if (this._currentScene != null) {
+                    // Invoke scene unload.
+                    if (this._currentScene.onSceneUnLoad != null)
+                        this._currentScene.onSceneUnLoad();
+
+                    // Unload all display objects in the scene.
+                    this._currentScene.removeFromDOC(layer);
+                }
+            }
+
+            // Swap the current scene.
+            this._currentScene = newScene;
+
+            /* Load the scene. */
+            {
+                // Load all the display object from the new scene.
+                this._currentScene.addToDOC(layer);
+
+                // Invoke scene loaded callback.
+                if (this._currentScene.onSceneLoaded != null)
+                    this._currentScene.onSceneLoaded();
+            }
+
         }
 
     }

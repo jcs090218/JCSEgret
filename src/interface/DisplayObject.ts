@@ -11,12 +11,21 @@
 namespace JCSEgret {
 
     /**
-     * Display object.
+     * @desc Display object.
      */
     export abstract class DisplayObject {
 
-        // Display object id.
+        // Display object identity.
         public doId : number = -1;
+
+
+        /* setter/getter */
+        public abstract setX(newX : number) : void;
+        public abstract setY(newY : number) : void;
+
+        public abstract getX() : number;
+        public abstract getY() : number;
+
 
         public constructor() {
             // empty..
@@ -27,5 +36,10 @@ namespace JCSEgret {
          * would display this object.
          */
         public abstract addToDOC(doc : egret.DisplayObjectContainer) : void;
+
+        /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public abstract removeFromDOC(doc : egret.DisplayObjectContainer) : void
     }
 }

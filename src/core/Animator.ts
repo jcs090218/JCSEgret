@@ -90,6 +90,15 @@ namespace JCSEgret {
         }
 
         /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            this._animations.forEach(function (anim) {
+                anim.removeFromDOC(doc);
+            });
+        }
+
+        /**
          * @desc Switch the current playing animation by id.
          */
         public switchAnimById(id : number) : void {

@@ -14,7 +14,7 @@ namespace JCSEgret {
      * @desc Interface contain list of display object and ready
      * to display as a group instead of individual component.
      */
-    export class Interface extends DisplayObject {
+    export class Interface extends DisplayObjectContainer {
 
         public interfaceId : number = -1;
 
@@ -26,7 +26,16 @@ namespace JCSEgret {
 
 
         /* setter/getter */
+        public getDisplayObjects() : DisplayObject[] { return this._displayObjects; }
         public getFriction() : number { return this._friction; }
+
+        public setFriction(val : number) : void { this._friction = val; }
+
+        public setX(newX : number) : void { }
+        public setY(newY : number) : void { }
+
+        public getX() : number { return 0.0; }
+        public getY() : number { return 0.0; }
 
 
         public constructor() {
@@ -38,8 +47,17 @@ namespace JCSEgret {
          * would display this object.
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
-            this._displayObjects.forEach(function (displayObject) {
-                displayObject.addToDOC(doc);
+            this._displayObjects.forEach(function (disObj) {
+                disObj.addToDOC(doc);
+            });
+        }
+
+        /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            this._displayObjects.forEach(function (disObj) {
+                disObj.removeFromDOC(doc);
             });
         }
 

@@ -112,6 +112,13 @@ namespace JCSEgret {
         }
 
         /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            doc.removeChild(this._bitmap);
+        }
+
+        /**
          * Play the animation.
          */
         public playAnim() : void {

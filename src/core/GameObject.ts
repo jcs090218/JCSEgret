@@ -15,11 +15,37 @@ namespace JCSEgret {
      */
     export class GameObject extends Component {
 
+        // Game Object identity.
+        public id : number = -1;
+
         // List of component this gameobject holds.
         private _components : Component[] = new Array();
 
 
         /* Setter/Getter */
+        public setX(newX : number) : void {
+            this._components.forEach(function (comp) {
+                comp.setX(newX);
+            });
+        }
+        public setY(newY : number) : void {
+            this._components.forEach(function (comp) {
+                comp.setX(newY);
+            });
+        }
+
+        public getX() : number {
+            if (this._components.length <= 1)
+                return this._components[0].getX();
+            else
+                return 0.0 ;
+        }
+        public getY() : number {
+            if (this._components.length <= 1)
+                return this._components[0].getY();
+            else
+                return 0.0 ;
+        }
 
 
         /**
@@ -88,5 +114,15 @@ namespace JCSEgret {
                 comp.addToDOC(doc);
             });
         }
+
+        /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            this._components.forEach(function (comp) {
+                comp.removeFromDOC(doc);
+            });
+        }
+
     }
 }

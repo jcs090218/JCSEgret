@@ -13,8 +13,7 @@ namespace JCSEgret {
     /**
      * @desc Scene object, handle multiple interfaces.
      */
-    export class Scene extends DisplayObject {
-
+    export class Scene extends DisplayObjectContainer {
 
         // Scene id.
         public sceneId : number = -1;
@@ -31,6 +30,16 @@ namespace JCSEgret {
         private _interfaces : Interface[] = new Array();
 
 
+        /* Setter/Getter */
+        public getInterfaces() : Interface[] { return this._interfaces; }
+
+        public setX(newX : number) : void { }
+        public setY(newY : number) : void { }
+
+        public getX() : number { return 0.0; }
+        public getY() : number { return 0.0; }
+
+
         public constructor() {
             super();
         }
@@ -42,6 +51,15 @@ namespace JCSEgret {
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             this._interfaces.forEach(function (inter) {
                 inter.addToDOC(doc);
+            });
+        }
+
+        /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            this._interfaces.forEach(function (inter) {
+                inter.removeFromDOC(doc);
             });
         }
 
