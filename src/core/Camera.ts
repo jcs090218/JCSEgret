@@ -13,7 +13,10 @@ namespace JCSEgret {
     /**
      * 2D Camera.
      */
-    export class Camera extends GameObject {
+    export class Camera {
+
+        // Is the component active?
+        public active : boolean = true;
 
         // Singleton, for camera.
         private static instance : Camera = new Camera();
@@ -48,7 +51,7 @@ namespace JCSEgret {
         }
 
         public constructor() {
-            super();
+            // empty..
         }
 
         /**
@@ -60,6 +63,8 @@ namespace JCSEgret {
                 return;
 
             this.doFollowTarget();
+
+            this.keepInSceneBoundaries();
 
             this.doCamera();
         }
@@ -76,10 +81,6 @@ namespace JCSEgret {
             if (!this.checkCameraNeedUpdate())
                 return;
 
-            /* Prepare info. */
-            let deltaX : number = this._x - this._recordX;
-            let deltaY : number = this._y - this._recordY;
-
             let inters : Interface[] = currentScene.getInterfaces();
 
             for (let interIndex = 0;
@@ -88,30 +89,31 @@ namespace JCSEgret {
             {
                 let inter : Interface = inters[interIndex];
 
-                let dos : DisplayObject[] = inter.getDisplayObjects();
+                let dos : GameObject[] = inter.getGameObjects();
 
                 for (let doIndex = 0;
                      doIndex < dos.length;
                      ++doIndex)
                 {
-                    let disObj : DisplayObject = dos[doIndex];
+                    let gameObj : GameObject = dos[doIndex];
 
                     /* Position */
                     {
-                        let some : number = disObj.getX() - deltaX;
+                        let deltaX : number = (this._x - this._recordX) * inter.applyFriction();
+                        let deltaY : number = (this._y - this._recordY) * inter.applyFriction();
 
-                        disObj.setX(disObj.getX() - deltaX);
-                        disObj.setY(disObj.getY() - deltaY);
+                        gameObj.setX(gameObj.getX() - deltaX);
+                        gameObj.setY(gameObj.getY() - deltaY);
                     }
 
                     /* Rotation */
                     {
-                        // TODO(jenchieh): ..
+                        // TODO(jenchieh): Implement this..
                     }
 
                     /* Scale */
                     {
-                        // TODO(jenchieh): ..
+                        // TODO(jenchieh): Implement this..
                     }
                 }
             }
@@ -129,7 +131,8 @@ namespace JCSEgret {
                 return;
 
             // Make sure the current scene exists.
-            if (SceneManager.getInstance().getCurrentScene() == null)
+            let currentScene : Scene = SceneManager.getInstance().getCurrentScene();
+            if (currentScene == null)
                 return;
 
 
@@ -150,6 +153,28 @@ namespace JCSEgret {
         private recordCameraStatus() : void {
             this._recordX = this._x;
             this._recordY = this._y;
+        }
+
+        /**
+         * @desc Keep the camera in the scene boundaries.
+         */
+        private keepInSceneBoundaries() : void {
+            // Make sure the current scene exists.
+            let currentScene : Scene = SceneManager.getInstance().getCurrentScene();
+            if (currentScene == null)
+                return;
+
+            // Keep left/right boundary.
+            if (this._x < currentScene.min_x_bound)
+                this._x = currentScene.min_x_bound;
+            else if (this._x > currentScene.max_x_bound)
+                this._x = currentScene.max_x_bound;
+
+            // Keep top/bottom boundary.
+            if (this._y < currentScene.min_y_bound)
+                this._y = currentScene.min_y_bound;
+            else if (this._y > currentScene.max_y_bound)
+                this._y = currentScene.max_y_bound;
         }
 
     }
