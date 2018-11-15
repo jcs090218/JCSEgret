@@ -32,29 +32,29 @@ namespace JCSEgret {
         public getScaleX() : number { return this._currentAnim.getScaleX(); }
         public getScaleY() : number { return this._currentAnim.getScaleY(); }
 
-        public setX(newX : number) : void { this.setAnimData(AnimData.X, newX); }
-        public setY(newY : number) : void { this.setAnimData(AnimData.Y, newY); }
-        public setWidth(newWidth : number) : void { this.setAnimData(AnimData.WIDTH, newWidth); }
-        public setHeight(newHeight : number) : void { this.setAnimData(AnimData.HEIGHT, newHeight); }
-        public setAnchorOffsetX(px : number) : void { this.setAnimData(AnimData.ANCHOR_OFFSET_X, px); }
-        public setAnchorOffsetY(py : number) : void { this.setAnimData(AnimData.ANCHOR_OFFSET_Y, py); }
-        public setScaleX(px : number) : void { this.setAnimData(AnimData.SCALE_X, px); }
-        public setScaleY(py : number) : void { this.setAnimData(AnimData.SCALE_Y, py); }
+        public setX(newX : number) : void { this.setSpriteData(SpriteData.X, newX); }
+        public setY(newY : number) : void { this.setSpriteData(SpriteData.Y, newY); }
+        public setWidth(newWidth : number) : void { this.setSpriteData(SpriteData.WIDTH, newWidth); }
+        public setHeight(newHeight : number) : void { this.setSpriteData(SpriteData.HEIGHT, newHeight); }
+        public setAnchorOffsetX(px : number) : void { this.setSpriteData(SpriteData.ANCHOR_OFFSET_X, px); }
+        public setAnchorOffsetY(py : number) : void { this.setSpriteData(SpriteData.ANCHOR_OFFSET_Y, py); }
+        public setScaleX(px : number) : void { this.setSpriteData(SpriteData.SCALE_X, px); }
+        public setScaleY(py : number) : void { this.setSpriteData(SpriteData.SCALE_Y, py); }
 
         /**
-         * @desc Setter to all animation data.
+         * @desc Setter to all sprite data.
          */
-        private setAnimData(dt : AnimData, newVal : number) : void {
+        private setSpriteData(dt : SpriteData, newVal : number) : void {
             this._animations.forEach(function (anim) {
                 switch (dt) {
-                    case AnimData.X: anim.setX(newVal); break;
-                    case AnimData.Y: anim.setY(newVal); break;
-                    case AnimData.WIDTH: anim.setWidth(newVal); break;
-                    case AnimData.HEIGHT: anim.setHeight(newVal); break;
-                    case AnimData.ANCHOR_OFFSET_X: anim.setAnchorOffsetX(newVal); break;
-                    case AnimData.ANCHOR_OFFSET_Y: anim.setAnchorOffsetY(newVal); break;
-                    case AnimData.SCALE_X: anim.setScaleX(newVal); break;
-                    case AnimData.SCALE_Y: anim.setScaleY(newVal); break;
+                    case SpriteData.X: anim.setX(newVal); break;
+                    case SpriteData.Y: anim.setY(newVal); break;
+                    case SpriteData.WIDTH: anim.setWidth(newVal); break;
+                    case SpriteData.HEIGHT: anim.setHeight(newVal); break;
+                    case SpriteData.ANCHOR_OFFSET_X: anim.setAnchorOffsetX(newVal); break;
+                    case SpriteData.ANCHOR_OFFSET_Y: anim.setAnchorOffsetY(newVal); break;
+                    case SpriteData.SCALE_X: anim.setScaleX(newVal); break;
+                    case SpriteData.SCALE_Y: anim.setScaleY(newVal); break;
                 }
             });
         }
@@ -100,6 +100,8 @@ namespace JCSEgret {
 
         /**
          * @desc Switch the current playing animation by id.
+         *
+         * @param id Animation id.
          */
         public switchAnimById(id : number) : void {
             // Ensure the animation is valid.
@@ -115,6 +117,25 @@ namespace JCSEgret {
 
             // Only play this animation.
             this._currentAnim.playAnim();
+        }
+
+        /**
+         * @desc Load the animator with multiple animation.
+         *
+         * @param anims List of animations.
+         */
+        public loadAnimator(anims : Animation[]) : void {
+            for (let index = 0;
+                 index < anims.length;
+                 ++index)
+            {
+                if (anims[index] == null) {
+                    Debug.log("Cannot load animator with [" + index + "] index animtion is null references...");
+                    continue;
+                }
+
+                this.addAnim(anims[index]);
+            }
         }
 
         /**
@@ -135,8 +156,12 @@ namespace JCSEgret {
 
             // Initialize the animator the play the first animation
             // as default.
-            if (animId == 0)
-                this.switchAnimById(0);
+            {
+                if (animId == 0)
+                    this.switchAnimById(0);
+                else
+                    anim.stopAnim();
+            }
 
             anim.animId = animId;
 
