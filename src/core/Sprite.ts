@@ -23,7 +23,10 @@ namespace JCSEgret {
         public getBitmap() : egret.Bitmap { return this._bitmap; }
         public getTexture() : egret.Texture { return this.getBitmap().texture; }
 
-        public setTexture(tex : egret.Texture) : void { this.getBitmap().texture = tex; }
+        public setTexture(tex : egret.Texture) : void {
+            this.getBitmap().texture = tex;
+            this.autoPivot();  // Auto pivot once after the new texture is come in.
+        }
 
         public getX() : number { return this.getBitmap().x; }
         public getY() : number { return this.getBitmap().y; }
@@ -34,12 +37,12 @@ namespace JCSEgret {
         public getScaleX() : number { return this.getBitmap().scaleX; }
         public getScaleY() : number { return this.getBitmap().scaleY; }
 
-        public setX(x : number) : void {
-            let camView = (-Camera.getInstance().getX() + x);
+        public setX(newX : number) : void {
+            let camView = (-Camera.getInstance().getX() + newX);
             this.getBitmap().x = camView;
         }
-        public setY(y : number) : void {
-            let camView = (-Camera.getInstance().getY() + y);
+        public setY(newY : number) : void {
+            let camView = (-Camera.getInstance().getY() + newY);
             this.getBitmap().y = camView;
         }
         public setWidth(w : number) : void { this.getBitmap().width = w; }
@@ -92,6 +95,23 @@ namespace JCSEgret {
                 return;
 
             this.getBitmap().texture = RES.getRes(imgName);
+
+            this.autoPivot();
+        }
+
+        /**
+         * @desc Auto pivot the sprite.
+         */
+        public autoPivot(ap : boolean = true) : void {
+            if (ap) {
+                let offX : number = this.getWidth() / 2.0;
+                let offY : number = this.getHeight() / 2.0;
+                this.setAnchorOffsetX(offX);
+                this.setAnchorOffsetY(offY);
+            } else {
+                this.setAnchorOffsetX(0.0);
+                this.setAnchorOffsetY(0.0);
+            }
         }
 
     }
