@@ -1,5 +1,5 @@
 /**
- * $File: AnimData.ts $
+ * $File: SpriteData.ts $
  * $Date: 2018-10-17 21:34:01 $
  * $Revision: $
  * $Creator: Jen-Chieh Shen $
@@ -11,9 +11,9 @@
 namespace JCSEgret {
 
     /**
-     * @desc List of animation data.
+     * @desc List of sprite data.
      */
-    export enum AnimData {
+    export enum SpriteData {
         X,
         Y,
 
