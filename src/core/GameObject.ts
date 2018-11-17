@@ -62,6 +62,9 @@ namespace JCSEgret {
         public setScaleX(sx : number) : void { this.setSpriteData(SpriteData.SCALE_X, sx); }
         public setScaleY(sy : number) : void { this.setSpriteData(SpriteData.SCALE_Y, sy); }
 
+        public deltaX(dx : number) : void { this.setX(this.getX() + dx); }
+        public deltaY(dy : number) : void { this.setY(this.getY() + dy); }
+
         /**
          * @desc Setter to all sprite data.
          */
