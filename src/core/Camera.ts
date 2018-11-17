@@ -35,6 +35,9 @@ namespace JCSEgret {
         private _followFrictionX : number = 0.6;
         private _followFrictionY : number = 0.6;
 
+        private _followOffsetX : number = 0.0;
+        private _followOffsetY : number = 0.0;
+
 
         /* Setter/Getter */
         public setFollowTarget(ft : GameObject) : void { this._followTarget = ft; }
@@ -45,11 +48,19 @@ namespace JCSEgret {
         public setFollowFrictionY(ffy : number) : void { this._followFrictionY = ffy; }
         public getFollowFrictionY() : number { return this._followFrictionY; }
 
+        public getFollowOffsetX() : number { return this._followOffsetX; }
+        public setFollowOffsetX(fox : number) : void { this._followOffsetX = fox; }
+        public getFollowOffsetY() : number { return this._followOffsetY; }
+        public setFollowOffsetY(foy : number) : void { this._followOffsetY = foy; }
+
         public getX() : number { return this._x; }
         public getY() : number { return this._y; }
 
         public setX(newX : number) : void { this._x = newX; }
         public setY(newY : number) : void { this._y = newY; }
+
+        public deltaX(dx : number) : void { this.setX(this.getX() + dx); }
+        public deltaY(dy : number) : void { this.setY(this.getY() + dy); }
 
 
         /**
@@ -111,8 +122,8 @@ namespace JCSEgret {
                         let deltaX : number = (this._x - this._recordX) * inter.applyFriction();
                         let deltaY : number = (this._y - this._recordY) * inter.applyFriction();
 
-                        gameObj.setX(gameObj.getX() - deltaX);
-                        gameObj.setY(gameObj.getY() - deltaY);
+                        gameObj.deltaX(-deltaX);
+                        gameObj.deltaY(-deltaY);
                     }
 
                     /* Rotation */
@@ -139,19 +150,14 @@ namespace JCSEgret {
             if (this._followTarget == null)
                 return;
 
-            // Make sure the current scene exists.
-            let currentScene : Scene = SceneManager.getInstance().getCurrentScene();
-            if (currentScene == null)
-                return;
+            let targetX : number = this._followTarget.getX() - (Screen.width() / 2.0) + this.getFollowOffsetX();
+            let targetY : number = this._followTarget.getY() - (Screen.height() / 2.0) + this.getFollowOffsetY();
 
-            let targetX : number = this._followTarget.getX() - (Screen.width() / 2.0);
-            let targetY : number = this._followTarget.getY() - (Screen.height() / 2.0);
+            let newX : number = (targetX - this.getX()) / this._followFrictionX * Time.deltaTime();
+            let newY : number = (targetY - this.getY()) / this._followFrictionY * Time.deltaTime();
 
-            let newX : number = this.getX() + (targetX - this.getX()) / this._followFrictionX * Time.deltaTime();
-            let newY : number = this.getY() + (targetY - this.getY()) / this._followFrictionY * Time.deltaTime();
-
-            this.setX(newX);
-            this.setY(newY);
+            this.deltaX(newX);
+            this.deltaY(newY);
         }
 
         /**
