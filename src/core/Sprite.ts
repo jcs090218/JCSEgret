@@ -28,8 +28,8 @@ namespace JCSEgret {
             this.autoPivot();  // Auto pivot once after the new texture is come in.
         }
 
-        public getX() : number { return this.getBitmap().x; }
-        public getY() : number { return this.getBitmap().y; }
+        public getX() : number { return this.getBitmap().x + Camera.getInstance().getX(); }
+        public getY() : number { return this.getBitmap().y + Camera.getInstance().getY(); }
         public getWidth() : number { return this.getBitmap().width; }
         public getHeight() : number { return this.getBitmap().height; }
         public getAnchorOffsetX() : number { return this.getBitmap().anchorOffsetX; }
@@ -37,14 +37,8 @@ namespace JCSEgret {
         public getScaleX() : number { return this.getBitmap().scaleX; }
         public getScaleY() : number { return this.getBitmap().scaleY; }
 
-        public setX(newX : number) : void {
-            let camView = (-Camera.getInstance().getX() + newX);
-            this.getBitmap().x = camView;
-        }
-        public setY(newY : number) : void {
-            let camView = (-Camera.getInstance().getY() + newY);
-            this.getBitmap().y = camView;
-        }
+        public setX(newX : number) : void { this.getBitmap().x = newX - Camera.getInstance().getX(); }
+        public setY(newY : number) : void { this.getBitmap().y = newY - Camera.getInstance().getY(); }
         public setWidth(w : number) : void { this.getBitmap().width = w; }
         public setHeight(h : number) : void { this.getBitmap().height = h; }
         public setAnchorOffsetX(px : number) : void { this.getBitmap().anchorOffsetX = px; }
