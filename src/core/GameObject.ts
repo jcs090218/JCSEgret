@@ -264,7 +264,7 @@ namespace JCSEgret {
         }
 
         /**
-         * @desc Load the animation into buffer.
+         * @desc Load the animation by file path.
          *
          * @param prefixName Prefix name of the animation targeting.
          * @param postfixName Postfix name of the animation targeting.
@@ -276,9 +276,9 @@ namespace JCSEgret {
         }
 
         /**
-         * @desc Load the animator with multiple animation.
+         * @desc Load the animator with multiple animations.
          *
-         * @param anims List of animations.
+         * @param anims List of animation.
          */
         public loadAnimator(anims : Animation[]) : void {
             this._animator = new Animator();

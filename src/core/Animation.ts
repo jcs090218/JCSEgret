@@ -119,7 +119,7 @@ namespace JCSEgret {
         }
 
         /**
-         * @desc Load the animation into buffer.
+         * @desc Load the animation by file path.
          *
          * @param prefixName Prefix name of the animation targeting.
          * @param postfixName Postfix name of the animation targeting.

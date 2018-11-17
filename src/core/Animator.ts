@@ -120,9 +120,9 @@ namespace JCSEgret {
         }
 
         /**
-         * @desc Load the animator with multiple animation.
+         * @desc Load the animator with multiple animations.
          *
-         * @param anims List of animations.
+         * @param anims List of animation.
          */
         public loadAnimator(anims : Animation[]) : void {
             for (let index = 0;
