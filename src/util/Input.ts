@@ -15,9 +15,9 @@ namespace JCSEgret {
      */
     export class Input {
 
-        private static _keysPressedThisFrame : KeyCode[] = [];
-        private static _keysReleaseThisFrame : KeyCode[] = [];
         private static _keysDown : KeyCode[] = [];
+        private static _keysReleaseThisFrame : KeyCode[] = [];
+        private static _keysPressedThisFrame : KeyCode[] = [];
 
         private static _frameIdCounter : number = 0;
         private static _frameId : number = 0;
@@ -46,7 +46,6 @@ namespace JCSEgret {
                     Input._frameIdCounter = 0;
             }
 
-            Input._keysDown = [];
             Input._keysReleaseThisFrame = [];
         }
 
@@ -56,30 +55,22 @@ namespace JCSEgret {
          * @returns True, key is down. False, key is not down.
          */
         public static getKeyDown(keyCode : KeyCode) : boolean {
-            for (let index = 0;
-                 index < Input._keysDown.length;
-                 ++index)
-            {
-                let key = Input._keysDown[index];
-                if (key == keyCode) {
-
-                    // Check contains.
-                    if (Input._keysPressedThisFrame.indexOf(key) > -1) {
-                        if (Input._frameIdCounter == Input._frameId)
-                            return true;
-                        return false;
-                    } else {
-                        // The key is down this frame, add to the check list.
-                        // So when the next time it etners will return false.
-                        Input._keysPressedThisFrame.push(key);
-
-                        // Update it so know is the same frame.
-                        Input._frameId = Input._frameIdCounter;
-
+            if (Input.getKey(keyCode)) {
+                // Check contains.
+                if (Input.containsKey(Input._keysDown, keyCode)) {
+                    if (Input._frameIdCounter == Input._frameId)
                         return true;
-                    }
-                }
+                    return false;
+                } else {
+                    // The key is down this frame, add to the check list.
+                    // So when the next time it etners will return false.
+                    Input.safePushKey(Input._keysDown, keyCode);
 
+                    // Update it so know is the same frame.
+                    Input._frameId = Input._frameIdCounter;
+
+                    return true;
+                }
             }
             return false;
         }
@@ -90,14 +81,8 @@ namespace JCSEgret {
          * @returns True, key is held down. False, key is not held down.
          */
         public static getKey(keyCode : KeyCode) : boolean {
-            for (let index = 0;
-                 index < Input._keysDown.length;
-                 ++index)
-            {
-                let key = Input._keysDown[index];
-                if (key == keyCode)
-                    return true;
-            }
+            if (Input.containsKey(Input._keysPressedThisFrame, keyCode))
+                return true;
             return false;
         }
 
@@ -128,17 +113,37 @@ namespace JCSEgret {
             document.addEventListener("keydown", (e) => {
                 let key : KeyCode = <KeyCode>e.keyCode;
 
-                Input._keysDown.push(key);
+                Input.safePushKey(Input._keysPressedThisFrame, key);
             });
 
             document.addEventListener("keyup", (e) => {
                 let key : KeyCode = <KeyCode>e.keyCode;
 
-                Input._keysReleaseThisFrame.push(key);
+                Input.safePushKey(Input._keysReleaseThisFrame, key);
 
                 // Remove the key down list.
+                Input.removeKeyFromList(Input._keysDown, key);
                 Input.removeKeyFromList(Input._keysPressedThisFrame, key);
             });
+        }
+
+        /**
+         * @desc Check if key is contains in the list.
+         */
+        private static containsKey(list : KeyCode[], key : KeyCode) {
+            return (list.indexOf(key) > -1);
+        }
+
+        /**
+         * @desc Prevent pushing duplicate keycode.
+         * @param list List of keycode.
+         * @param key Key code value.
+         */
+        private static safePushKey(list : KeyCode[], key : KeyCode) {
+            // If contain.
+            if (Input.containsKey(list, key))
+                return;
+            list.push(key);
         }
 
         /**
