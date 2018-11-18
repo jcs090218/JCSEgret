@@ -13,12 +13,15 @@ namespace JCSEgret {
     /**
      * @desc Button handle.
      */
-    export abstract class Button {
+    export abstract class Button extends UIObject {
 
+        // Compsite Egret's button class.
         private _button : eui.Button = new eui.Button();
 
-        /* Setter/Getter */
+
+        /* setter/getter */
         public getButton() : eui.Button { return this._button; }
+
 
         /**
          * @param label Label for the button.
@@ -28,6 +31,8 @@ namespace JCSEgret {
         public constructor(label : string,
                            hc : number = 0,
                            vc : number = 0) {
+            super();
+
             this._button.label = label;
 
             // position.
@@ -51,6 +56,13 @@ namespace JCSEgret {
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             doc.addChild(this._button);
+        }
+
+        /**
+         * @desc Remove the display object fomr this display object container.
+         */
+        public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
+            doc.removeChild(this._button);
         }
     }
 }
