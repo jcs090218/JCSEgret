@@ -85,7 +85,8 @@ namespace JCSEgret {
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             this._animations.forEach(function (anim) {
-                anim.addToDOC(doc);
+                if (anim != null)
+                    anim.addToDOC(doc);
             });
         }
 
@@ -94,7 +95,8 @@ namespace JCSEgret {
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
             this._animations.forEach(function (anim) {
-                anim.removeFromDOC(doc);
+                if (anim != null)
+                    anim.removeFromDOC(doc);
             });
         }
 
