@@ -34,6 +34,6 @@ namespace JCSEgret {
         /**
          * @desc Remove the display object fomr this display object container.
          */
-        public abstract removeFromDOC(doc : egret.DisplayObjectContainer) : void
+        public abstract removeFromDOC(doc : egret.DisplayObjectContainer) : void;
     }
 }
