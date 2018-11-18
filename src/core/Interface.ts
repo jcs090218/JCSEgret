@@ -18,7 +18,12 @@ namespace JCSEgret {
 
         public interfaceId : number = -1;
 
+        // List of gameobject going to display in this scene.
         private _gameObjects : GameObject[] = new Array();
+
+        // List of UI object going to display in this scene.
+        private _uiObjects : UIObject[] = new Array();
+
 
         // How fast the this interface move corresponding to the
         // camera's movement.
@@ -27,8 +32,9 @@ namespace JCSEgret {
 
         /* setter/getter */
         public getGameObjects() : GameObject[] { return this._gameObjects; }
-        public getFriction() : number { return this._friction; }
+        public getUIObjects() : UIObject[] { return this._uiObjects; }
 
+        public getFriction() : number { return this._friction; }
         public setFriction(val : number) : void { this._friction = MathUtil.abs(val); }
 
 
@@ -44,6 +50,10 @@ namespace JCSEgret {
             this._gameObjects.forEach(function (gameObj) {
                 gameObj.addToDOC(doc);
             });
+
+            this._uiObjects.forEach(function (uiObj) {
+                uiObj.addToDOC(doc);
+            });
         }
 
         /**
@@ -52,6 +62,10 @@ namespace JCSEgret {
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
             this._gameObjects.forEach(function (gameObj) {
                 gameObj.removeFromDOC(doc);
+            });
+
+            this._uiObjects.forEach(function (uiObj) {
+                uiObj.removeFromDOC(doc);
             });
         }
 
@@ -112,5 +126,44 @@ namespace JCSEgret {
                 return 1.0;
             return 1.0 / this._friction;
         }
+
+        /**
+         * @desc Add UI object to this interface.
+         */
+        public addUIO(uio : UIObject) : number {
+            if (uio == null) {
+                Debug.error("Cannot add UI object with null references...");
+                return -1;
+            }
+
+            this._uiObjects.push(uio);
+
+            // Assign ui object id.
+            let id : number = this._uiObjects.length - 1;
+            uio.id = id;
+
+            // Returns ui object id.
+            return id;
+        }
+
+        /**
+         * @desc Remove UI object from the UI object list by using the UI
+         * object id.
+         *
+         * @param id UI object id.
+         */
+        public removeUIOById(id : number) : void {
+            delete this._uiObjects[id];
+        }
+
+        /**
+         * @desc Returns the UI object by using the UI object id.
+         *
+         * @param id UI object id.
+         */
+        public getUIOById(id : number) : UIObject {
+            return this._uiObjects[id];
+        }
+
     }
 }
