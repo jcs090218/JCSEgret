@@ -11,7 +11,7 @@
 namespace JCSEgret {
 
     /**
-     * @desc UI game object class.
+     * @desc UI game object define.
      */
     export abstract class UIObject extends DisplayObject {
 
@@ -20,7 +20,7 @@ namespace JCSEgret {
 
 
         /* setter/getter */
-        
+
 
         public constructor() {
             super();
