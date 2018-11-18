@@ -35,9 +35,13 @@ namespace JCSEgret {
         // All the interfaces this scene holds.
         private _interfaces : Interface[] = new Array();
 
+        // UI, every scene have an isolated canvas.
+        private _canvas : Canvas = new Canvas();
 
-        /* Setter/Getter */
+
+        /* setter/getter */
         public getInterfaces() : Interface[] { return this._interfaces; }
+        public getCanvas() : Canvas { return this._canvas; }
 
 
         public constructor() {
@@ -52,6 +56,8 @@ namespace JCSEgret {
             this._interfaces.forEach(function (inter) {
                 inter.addToDOC(doc);
             });
+
+            this._canvas.addToDOC(doc);
         }
 
         /**
@@ -61,6 +67,8 @@ namespace JCSEgret {
             this._interfaces.forEach(function (inter) {
                 inter.removeFromDOC(doc);
             });
+
+            this._canvas.removeFromDOC(doc);
         }
 
         /**
@@ -103,5 +111,6 @@ namespace JCSEgret {
         public getInterfaceById(id : number) : Interface {
             return this._interfaces[id];
         }
+
     }
 }
