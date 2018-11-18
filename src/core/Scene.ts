@@ -54,7 +54,8 @@ namespace JCSEgret {
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             this._interfaces.forEach(function (inter) {
-                inter.addToDOC(doc);
+                if (inter != null)
+                    inter.addToDOC(doc);
             });
 
             this._canvas.addToDOC(doc);
@@ -65,7 +66,8 @@ namespace JCSEgret {
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
             this._interfaces.forEach(function (inter) {
-                inter.removeFromDOC(doc);
+                if (inter != null)
+                    inter.removeFromDOC(doc);
             });
 
             this._canvas.removeFromDOC(doc);

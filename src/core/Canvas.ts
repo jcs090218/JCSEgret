@@ -32,7 +32,8 @@ namespace JCSEgret {
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             this._interfaces.forEach(function (inter) {
-                inter.addToDOC(doc);
+                if (inter != null)
+                    inter.addToDOC(doc);
             });
         }
 
@@ -41,10 +42,10 @@ namespace JCSEgret {
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
             this._interfaces.forEach(function (inter) {
-                inter.removeFromDOC(doc);
+                if (inter != null)
+                    inter.removeFromDOC(doc);
             });
         }
-
 
         /**
          * @desc Add the interface to this scene.

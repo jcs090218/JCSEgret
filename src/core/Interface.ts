@@ -48,11 +48,13 @@ namespace JCSEgret {
          */
         public addToDOC(doc : egret.DisplayObjectContainer) : void {
             this._gameObjects.forEach(function (gameObj) {
-                gameObj.addToDOC(doc);
+                if (gameObj != null)
+                    gameObj.addToDOC(doc);
             });
 
             this._uiObjects.forEach(function (uiObj) {
-                uiObj.addToDOC(doc);
+                if (uiObj != null)
+                    uiObj.addToDOC(doc);
             });
         }
 
@@ -61,11 +63,13 @@ namespace JCSEgret {
          */
         public removeFromDOC(doc : egret.DisplayObjectContainer) : void {
             this._gameObjects.forEach(function (gameObj) {
-                gameObj.removeFromDOC(doc);
+                if (gameObj != null)
+                    gameObj.removeFromDOC(doc);
             });
 
             this._uiObjects.forEach(function (uiObj) {
-                uiObj.removeFromDOC(doc);
+                if (uiObj != null)
+                    uiObj.removeFromDOC(doc);
             });
         }
 

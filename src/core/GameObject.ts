@@ -179,7 +179,8 @@ namespace JCSEgret {
 
             /* Update all the components. */
             this._components.forEach(function (comp) {
-                comp.update();
+                if (comp != null)
+                    comp.update();
             });
         }
 
