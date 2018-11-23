@@ -26,8 +26,15 @@ namespace JCSEgret {
 
         /* setter/getter */
         public getWebSocket() : egret.WebSocket { return this._webSocket; }
+
         public setClientHandler(ch : ClientHandler) : void { this._clientHandler = ch; }
         public getClientHandler() : ClientHandler { return this._clientHandler; }
+
+        public getPacketEncoder() : PacketEncoder { return this._encoder; }
+        public getPacketDecoder() : PacketDecoder { return this._decoder; }
+
+        public setPacketEncoder(en : PacketEncoder) : void { this._encoder = en; }
+        public setPacketDecoder(de : PacketDecoder) : void { this._decoder = de; }
 
 
         /**
