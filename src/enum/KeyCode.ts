@@ -23,12 +23,12 @@ namespace JCSEgret {
         RETURN          = 13,
         ESCAPE          = 27,
         SPACE           = 32,
-        EXCLAIM         = 33,   /* Exclamation mark key '!'   */
-        DOUBLE_QUOTE    = 34,   /* Double quote key '"'       */
-        HASH            = 35,   /* Hash key '#'               */
-        DOLLAR          = 36,   /* Dollar sign key '$'        */
-        AMPERSAND       = 38,   /* Ampersand key '&'          */
-        QUOTE           = 39,   /* Quote key '                */
+        EXCLAIM         = 33,   /* Exclamation mark key '!'.  */
+        DOUBLE_QUOTE    = 34,   /* Double quote key '"'.      */
+        HASH            = 35,   /* Hash key '#'.              */
+        DOLLAR          = 36,   /* Dollar sign key '$'.       */
+        AMPERSAND       = 38,   /* Ampersand key '&'.         */
+        QUOTE           = 39,   /* Quote key '.               */
         LEFT_PAREN      = 40,   /* Left Parenthesis key '('.  */
         RIGHT_PAREN     = 41,   /* Right Parenthesis key ')'. */
         ASTERISK        = 42,   /* Asterisk key '*'.          */
@@ -52,7 +52,7 @@ namespace JCSEgret {
         COLON           = 58,   /* Colon ':' key.                */
         SEMICOLON       = 59,   /* Semicolon ';' key.            */
         LESS            = 60,   /* Less than '<' key.            */
-        EQUALS          = 61,   /* Equals '         =' key.               */
+        EQUALS          = 61,   /* Equals '=' key.               */
         GREATER         = 62,   /* Greater than '>' key.         */
         QUESTION        = 63,   /* Question mark '?' key.        */
         AT              = 64,   /* At key '@'.                   */
