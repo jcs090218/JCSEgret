@@ -21,4 +21,4 @@ support, time handler to get the delta time between frames, etc.
 
 ## Links
 
-* *Manual/Scripting API:* https://jcs090218.github.io/JCSEgret/
+* *Manual/Scripting API:* [JCSEgret-Scripting-Manual](https://jcs090218.github.io/JCSEgret/)
